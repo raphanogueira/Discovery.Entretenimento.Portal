@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Phone, MapPin, ChevronUp, Menu, X } from 'lucide-react';
+import showBeeGeesImg from './assets/wer_show_bee_gees.png';
 
 // --- Componente Principal App ---
 const App = () => {
@@ -92,7 +93,7 @@ const App = () => {
   ];
 
   const eventosFuturos = [
-    { nome: 'Show Acústico', data: '25 DEZ 2025', local: 'Teatro Principal', img: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' },
+    { nome: 'Show Acústico', data: '17 OUT 2025', local: 'Algodoeira Eventos', img: showBeeGeesImg },
   ];
 
   return (
@@ -240,16 +241,23 @@ const App = () => {
               </div>
               <div className="space-y-8 animate-on-scroll delay-3">
                 <h4 className="text-2xl font-bold">Informações de Contato</h4>
-                <div className="flex items-center text-lg">
-                  <Mail className="text-indigo-400 mr-4" size={24} />
+                <div className="flex items-start text-lg">
+                  {/* Wrapper para forçar o tamanho do ícone */}
+                  <div className="w-8 h-8 mr-4 flex-shrink-0">
+                    <Mail className="w-full h-full text-indigo-400" />
+                  </div>
                   <span>marcio.nogueira@discoveryentretenimento.com.br</span>
                 </div>
-                <div className="flex items-center text-lg">
-                  <Phone className="text-indigo-400 mr-4" size={24} />
+                <div className="flex items-start text-lg">
+                  <div className="w-8 h-8 mr-4 flex-shrink-0">
+                    <Phone className="w-full h-full text-indigo-400" />
+                  </div>
                   <span>(14) 97603-3750</span>
                 </div>
                 <div className="flex items-start text-lg">
-                  <MapPin className="text-indigo-400 mr-4 mt-1" size={24} />
+                  <div className="w-8 h-8 mr-4 flex-shrink-0">
+                    <MapPin className="w-full h-full text-indigo-400" />
+                  </div>
                   <span>Rua Luiz Scatimburgo, 550 - Ch. Bosque do Sol, Dois Córregos - SP</span>
                 </div>
               </div>
