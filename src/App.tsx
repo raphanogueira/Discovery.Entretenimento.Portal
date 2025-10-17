@@ -82,10 +82,7 @@ const App = () => {
   const galeriaItems = [
     { id: 1, categoria: 'show', img: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', evento: 'Festival Starlight' },
     { id: 2, categoria: 'festival', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', evento: 'Verão Eletrônico' },
-    { id: 3, categoria: 'teatro', img: 'https://images.unsplash.com/photo-1504387103974-336215b24876?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', evento: 'A Peça do Ano' },
-    { id: 4, categoria: 'show', img: 'https://images.unsplash.com/photo-1493676364312-416841f31509?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80', evento: 'Noite Acústica' },
-    { id: 5, categoria: 'festival', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', evento: 'Sunrise Fest' },
-    { id: 6, categoria: 'teatro', img: 'https://images.unsplash.com/photo-1627763297782-77b312b6f14b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80', evento: 'Comédia Stand-up' },
+    { id: 3, categoria: 'festival', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80', evento: 'Sunrise Fest' },
   ];
 
   const ingressos = [
@@ -96,8 +93,6 @@ const App = () => {
 
   const eventosFuturos = [
     { nome: 'Show Acústico', data: '25 DEZ 2025', local: 'Teatro Principal', img: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' },
-    { nome: 'Festival de Verão', data: '15 JAN 2026', local: 'Parque da Cidade', img: 'https://images.unsplash.com/photo-1565843708714-5248a54388e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' },
-    { nome: 'Noite Eletrônica', data: '12 FEV 2026', local: 'Club Underground', img: 'https://images.unsplash.com/photo-1582732279142-9a25b1a3e590?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80' },
   ];
 
   return (
@@ -247,15 +242,15 @@ const App = () => {
                 <h4 className="text-2xl font-bold">Informações de Contato</h4>
                 <div className="flex items-center text-lg">
                   <Mail className="text-indigo-400 mr-4" size={24} />
-                  <span>contato@discovery.com.br</span>
+                  <span>marcio.nogueira@discoveryentretenimento.com.br</span>
                 </div>
                 <div className="flex items-center text-lg">
                   <Phone className="text-indigo-400 mr-4" size={24} />
-                  <span>(11) 98765-4321</span>
+                  <span>(14) 97603-3750</span>
                 </div>
                 <div className="flex items-start text-lg">
                   <MapPin className="text-indigo-400 mr-4 mt-1" size={24} />
-                  <span>Av. Principal, 123, São Paulo - SP</span>
+                  <span>Rua Luiz Scatimburgo, 550 - Ch. Bosque do Sol, Dois Córregos - SP</span>
                 </div>
               </div>
             </div>
