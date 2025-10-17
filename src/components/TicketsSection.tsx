@@ -6,7 +6,7 @@ const ingressos = [
   { tipo: 'Camarote', preco: '350,00', beneficios: ['Visão privilegiada', 'Open bar e food', 'After-party exclusiva'] },
 ];
 
-export const TicketsSection = React.forwardRef<HTMLElement>((props, ref) => {
+export const TicketsSection = React.forwardRef<HTMLElement>((_, ref) => {
   return (
     <section id="ingressos" ref={ref} className="py-20 bg-gray-800">
       <div className="container mx-auto px-6 text-center">

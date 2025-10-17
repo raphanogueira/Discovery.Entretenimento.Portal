@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
-export const ContactSection = React.forwardRef<HTMLElement>((props, ref) => {
+export const ContactSection = React.forwardRef<HTMLElement>((_, ref) => {
   return (
     <section id="contato" ref={ref} className="py-20 bg-gray-800">
       <div className="container mx-auto px-6">

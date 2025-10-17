@@ -6,7 +6,7 @@ const eventosFuturos = [
   { nome: 'Show Acústico', data: '17 OUT 2025', local: 'Algodoeira Eventos', img: showBeeGeesImg },
 ];
 
-export const EventsSection = React.forwardRef<HTMLElement>((props, ref) => {
+export const EventsSection = React.forwardRef<HTMLElement>((_, ref) => {
   return (
     <section id="eventos" ref={ref} className="py-20 bg-gray-900">
       <div className="container mx-auto px-6">
