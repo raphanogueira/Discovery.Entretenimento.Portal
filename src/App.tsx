@@ -246,7 +246,7 @@ const App = () => {
                   <div className="w-8 h-8 mr-4 flex-shrink-0">
                     <Mail className="w-full h-full text-indigo-400" />
                   </div>
-                  <span>marcio.nogueira@discoveryentretenimento.com.br</span>
+                  <span>contato@discoveryentretenimento.com.br</span>
                 </div>
                 <div className="flex items-start text-lg">
                   <div className="w-8 h-8 mr-4 flex-shrink-0">
