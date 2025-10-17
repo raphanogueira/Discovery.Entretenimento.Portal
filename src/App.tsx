@@ -97,7 +97,7 @@ const App = () => {
   ];
 
   return (
-    <div className="bg-gray-900 text-white font-sans">
+    <div className="bg-gray-900 text-white font-sans overflow-x-hidden">
       {/* --- CABEÇALHO --- */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
