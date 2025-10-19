@@ -7,12 +7,16 @@ import { EventsSection } from './components/EventsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { BackToTopButton } from './components/BackToTopButton';
+import { GallerySection } from './components/GallerySection';
+import type { Show } from './types/Show';
+import { ShowGalleryPage } from './components/ShowGalleryPage';
 
 const App = () => {
   const [activeLink, setActiveLink] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedShow, setSelectedShow] = useState<Show | null>(null);
 
   const sectionRefs = {
     home: useRef<HTMLElement>(null),
@@ -20,6 +24,7 @@ const App = () => {
     ingressos: useRef<HTMLElement>(null),
     eventos: useRef<HTMLElement>(null),
     contato: useRef<HTMLElement>(null),
+    galeria: useRef<HTMLElement>(null),
   };
 
   useEffect(() => {
@@ -62,32 +67,46 @@ const App = () => {
   const navLinks = [
     { id: 'home', title: 'Início', ref: sectionRefs.home },
     { id: 'experiencia', title: 'A Experiência', ref: sectionRefs.experiencia },
-    { id: 'ingressos', title: 'Ingressos', ref: sectionRefs.ingressos },
+    // { id: 'ingressos', title: 'Ingressos', ref: sectionRefs.ingressos },
     { id: 'eventos', title: 'Eventos', ref: sectionRefs.eventos },
-    { id: 'contato', title: 'Contato', ref: sectionRefs.contato },
+    { id: 'galeria', title: 'Galeria', ref: sectionRefs.galeria },
+    { id: 'contato', title: 'Contato', ref: sectionRefs.contato }
   ];
 
   return (
     <div className="bg-gray-900 text-white font-sans overflow-x-hidden">
-      <Header
-        navLinks={navLinks}
-        activeLink={activeLink}
-        isScrolled={isScrolled}
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        handleNavClick={handleNavClick}
-      />
+      {selectedShow ? (
+        <ShowGalleryPage 
+          show={selectedShow} 
+          onBack={() => setSelectedShow(null)} 
+        />
+      ) : (
+        <>
+          <Header
+            navLinks={navLinks}
+            activeLink={activeLink}
+            isScrolled={isScrolled}
+            isMenuOpen={isMenuOpen}
+            setIsMenuOpen={setIsMenuOpen}
+            handleNavClick={handleNavClick}
+          />
 
-      <main>
-        <HeroSection sectionRef={sectionRefs.home} onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)} />
-        <ExperienceSection ref={sectionRefs.experiencia} />
-        <TicketsSection ref={sectionRefs.ingressos} />
-        <EventsSection ref={sectionRefs.eventos} />
-        <ContactSection ref={sectionRefs.contato} />
-      </main>
+          <main>
+            <HeroSection sectionRef={sectionRefs.home} onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)} />
+            <ExperienceSection ref={sectionRefs.experiencia} />
+            {/* <TicketsSection ref={sectionRefs.ingressos} /> */}
+            <EventsSection ref={sectionRefs.eventos} />
+            <GallerySection 
+              ref={sectionRefs.galeria} 
+              onShowSelect={setSelectedShow} 
+            />
+            <ContactSection ref={sectionRefs.contato} />
+          </main>
 
-      <Footer />
-      <BackToTopButton show={showBackToTop} onClick={scrollToTop} />
+          <Footer />
+          <BackToTopButton show={showBackToTop} onClick={scrollToTop} />
+        </>
+      )}
     </div>
   );
 };

@@ -11,9 +11,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ sectionRef, onVerIngre
       <div className="container mx-auto px-6">
         <h2 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down">A Experiência Começa Aqui</h2>
         <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-down animation-delay-300">Conectamos você a momentos inesquecíveis. Suas melhores histórias e a trilha sonora da sua vida te esperam na próxima história.</p>
-        <a href="#ingressos" onClick={(e) => { e.preventDefault(); onVerIngressosClick(); }} className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 animate-fade-in-down animation-delay-600">
+        {/* <a href="#ingressos" onClick={(e) => { e.preventDefault(); onVerIngressosClick(); }} className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 animate-fade-in-down animation-delay-600">
           Ver Ingressos
-        </a>
+        </a> */}
       </div>
     </section>
   );
