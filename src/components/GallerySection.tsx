@@ -31,10 +31,10 @@ export const GallerySection = React.forwardRef<HTMLElement, GallerySectionProps>
   const [selectedShow, setSelectedShow] = useState<Show | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const openGallery = (show: Show) => {
-    setSelectedShow(show);
-    setCurrentImageIndex(0);
-  };
+  // const openGallery = (show: Show) => {
+  //   setSelectedShow(show);
+  //   setCurrentImageIndex(0);
+  // };
 
   const closeGallery = () => {
     setSelectedShow(null);

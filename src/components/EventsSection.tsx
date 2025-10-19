@@ -1,6 +1,5 @@
 import React from 'react';
 import { MapPin } from 'lucide-react';
-import showBeeGeesImg from '../assets/wer_show_bee_gees.png';
 
 interface Evento {
   nome: string;

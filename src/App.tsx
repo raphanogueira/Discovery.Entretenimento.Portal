@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { ExperienceSection } from './components/ExperienceSection';
-import { TicketsSection } from './components/TicketsSection';
 import { EventsSection } from './components/EventsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -67,7 +66,6 @@ const App = () => {
   const navLinks = [
     { id: 'home', title: 'Início', ref: sectionRefs.home },
     { id: 'experiencia', title: 'A Experiência', ref: sectionRefs.experiencia },
-    // { id: 'ingressos', title: 'Ingressos', ref: sectionRefs.ingressos },
     { id: 'eventos', title: 'Eventos', ref: sectionRefs.eventos },
     { id: 'galeria', title: 'Galeria', ref: sectionRefs.galeria },
     { id: 'contato', title: 'Contato', ref: sectionRefs.contato }
@@ -94,7 +92,6 @@ const App = () => {
           <main>
             <HeroSection sectionRef={sectionRefs.home} onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)} />
             <ExperienceSection ref={sectionRefs.experiencia} />
-            {/* <TicketsSection ref={sectionRefs.ingressos} /> */}
             <EventsSection ref={sectionRefs.eventos} />
             <GallerySection 
               ref={sectionRefs.galeria} 
