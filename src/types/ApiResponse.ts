@@ -4,7 +4,7 @@ export interface Notification {
   message: string | null;
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   content: T | null;
   notifications: Notification[] | null;
   traceId: string | null;

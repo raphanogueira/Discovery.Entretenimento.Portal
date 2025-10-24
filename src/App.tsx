@@ -6,7 +6,9 @@ import AuthLayout from './pages/AuthLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import { GalleryPage } from './pages/GalleryPage';
 import { MainLayout } from './components/MainLayout';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'sonner';
 
 const App = () => {
@@ -79,6 +81,11 @@ const App = () => {
           <Route path="/cadastro" element={<RegisterPage />} />
           <Route path="/confirmar-email" element={<ConfirmEmailPage />} />
         </Route>
+        <Route path="/gallery" element={
+          <ProtectedRoute>
+            <GalleryPage />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={
           selectedShow ? (
             <ShowGalleryPage 
