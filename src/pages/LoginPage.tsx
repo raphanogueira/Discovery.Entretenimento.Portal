@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
     setError(null);
 
     try {
-      await api.post('api/users/login', { email, password });
+      await api.post('api/auth/login', { email, password });
       alert('Login bem-sucedido!');
       navigate('/');
     } catch (err) {
