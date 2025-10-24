@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IMaskInput } from 'react-imask';
+import { toast } from 'sonner';
 import api from '../services/api';
+import axios from 'axios';
+import type { Notification } from '../types/ApiResponse';
 
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +16,7 @@ const RegisterPage: React.FC = () => {
     password: '',
     confirmPassword: '',
   });
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +36,13 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-
+    
     if (formData.password !== formData.confirmPassword) {
-      setError('As senhas não coincidem.');
+      toast.warning('As senhas não coincidem.');
       return;
     }
+    
+    setIsLoading(true);
 
     const cleanedPhoneNumber = formData.phoneNumber.replace(/\D/g, '');
     const dataToSend = {
@@ -51,14 +55,20 @@ const RegisterPage: React.FC = () => {
     };
 
     try {
-      const resp = await api.post('api/accounts', dataToSend);
-      console.log('Resposta do servidor:', resp.data);
-      alert('Cadastro realizado com sucesso!');
-      navigate('/login'); // Redireciona para a página de login após o sucesso
+      await api.post('api/accounts', dataToSend);
+      toast.success('Cadastro realizado com sucesso! Verifique seu e-mail para confirmar sua conta.');
+      navigate('/login');
     } catch (err) {
+      if (axios.isAxiosError(err) && err.response?.data?.notifications) {
+        err.response.data.notifications.forEach((notification: Notification) => {
+          toast.error(notification.message);
+        });
+      } else {
+        toast.error('Ocorreu um erro ao realizar o cadastro. Tente novamente.');
+      }
       console.error('Erro no cadastro:', err);
-      setError('Ocorreu um erro ao realizar o cadastro. Tente novamente.');
-      alert('Erro no cadastro. Verifique o console para mais detalhes.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,7 +76,6 @@ const RegisterPage: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-4">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-lg">
         <h2 className="text-3xl font-bold mb-6 text-center text-indigo-400">Crie sua Conta</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
@@ -81,6 +90,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
             <div>
@@ -95,6 +105,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -110,6 +121,7 @@ const RegisterPage: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              disabled={isLoading}
             />
           </div>
           <div className="mb-6">
@@ -124,6 +136,7 @@ const RegisterPage: React.FC = () => {
               placeholder="(00) 00000-0000"
               className="bg-gray-700 border border-gray-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
+              disabled={isLoading}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -139,6 +152,7 @@ const RegisterPage: React.FC = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
             <div>
@@ -153,15 +167,22 @@ const RegisterPage: React.FC = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
+                disabled={isLoading}
               />
             </div>
           </div>
           <div className="flex items-center justify-center mb-6">
             <button
-              className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:shadow-outline transform transition-all duration-300 hover:scale-105"
+              className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:shadow-outline transform transition-all duration-300 hover:scale-105 disabled:bg-indigo-400 disabled:cursor-not-allowed flex items-center justify-center"
               type="submit"
+              disabled={isLoading}
             >
-              Cadastrar
+              {isLoading ? (
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              ) : 'Cadastrar'}
             </button>
           </div>
           <p className="text-center text-gray-400 text-sm">

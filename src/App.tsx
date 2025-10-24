@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import { MainLayout } from './components/MainLayout';
+import { Toaster } from 'sonner';
 
 const App = () => {
   const [activeLink, setActiveLink] = useState('home');
@@ -70,35 +71,38 @@ const App = () => {
   ];
 
   return (
-    <Routes>
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/confirmar-email" element={<ConfirmEmailPage />} />
-      </Route>
-      <Route path="/" element={
-        selectedShow ? (
-          <ShowGalleryPage 
-            show={selectedShow} 
-            onBack={() => setSelectedShow(null)} 
-          />
-        ) : (
-          <MainLayout
-            navLinks={navLinks}
-            activeLink={activeLink}
-            isScrolled={isScrolled}
-            isMenuOpen={isMenuOpen}
-            setIsMenuOpen={setIsMenuOpen}
-            handleNavClick={handleNavClick}
-            sectionRefs={sectionRefs}
-            onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)}
-            onShowSelect={setSelectedShow}
-            showBackToTop={showBackToTop}
-            scrollToTop={scrollToTop}
-          />
-        )
-      } />
-    </Routes>
+    <>
+      <Toaster richColors />
+      <Routes>
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/cadastro" element={<RegisterPage />} />
+          <Route path="/confirmar-email" element={<ConfirmEmailPage />} />
+        </Route>
+        <Route path="/" element={
+          selectedShow ? (
+            <ShowGalleryPage 
+              show={selectedShow} 
+              onBack={() => setSelectedShow(null)} 
+            />
+          ) : (
+            <MainLayout
+              navLinks={navLinks}
+              activeLink={activeLink}
+              isScrolled={isScrolled}
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
+              handleNavClick={handleNavClick}
+              sectionRefs={sectionRefs}
+              onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)}
+              onShowSelect={setSelectedShow}
+              showBackToTop={showBackToTop}
+              scrollToTop={scrollToTop}
+            />
+          )
+        } />
+      </Routes>
+    </>
   );
 };
 
