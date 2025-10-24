@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Header } from './components/Header';
-import { HeroSection } from './components/HeroSection';
-import { ExperienceSection } from './components/ExperienceSection';
-import { EventsSection } from './components/EventsSection';
-import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
-import { BackToTopButton } from './components/BackToTopButton';
-import { GallerySection } from './components/GallerySection';
+import { Routes, Route } from 'react-router-dom';
 import type { Show } from './types/Show';
 import { ShowGalleryPage } from './components/ShowGalleryPage';
+import AuthLayout from './pages/AuthLayout';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import { MainLayout } from './components/MainLayout';
 
 const App = () => {
   const [activeLink, setActiveLink] = useState('home');
@@ -72,39 +70,35 @@ const App = () => {
   ];
 
   return (
-    <div className="bg-gray-900 text-white font-sans overflow-x-hidden">
-      {selectedShow ? (
-        <ShowGalleryPage 
-          show={selectedShow} 
-          onBack={() => setSelectedShow(null)} 
-        />
-      ) : (
-        <>
-          <Header
+    <Routes>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/confirmar-email" element={<ConfirmEmailPage />} />
+      </Route>
+      <Route path="/" element={
+        selectedShow ? (
+          <ShowGalleryPage 
+            show={selectedShow} 
+            onBack={() => setSelectedShow(null)} 
+          />
+        ) : (
+          <MainLayout
             navLinks={navLinks}
             activeLink={activeLink}
             isScrolled={isScrolled}
             isMenuOpen={isMenuOpen}
             setIsMenuOpen={setIsMenuOpen}
             handleNavClick={handleNavClick}
+            sectionRefs={sectionRefs}
+            onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)}
+            onShowSelect={setSelectedShow}
+            showBackToTop={showBackToTop}
+            scrollToTop={scrollToTop}
           />
-
-          <main>
-            <HeroSection sectionRef={sectionRefs.home} onVerIngressosClick={() => handleNavClick(sectionRefs.ingressos)} />
-            <ExperienceSection ref={sectionRefs.experiencia} />
-            <EventsSection ref={sectionRefs.eventos} />
-            <GallerySection 
-              ref={sectionRefs.galeria} 
-              onShowSelect={setSelectedShow} 
-            />
-            <ContactSection ref={sectionRefs.contato} />
-          </main>
-
-          <Footer />
-          <BackToTopButton show={showBackToTop} onClick={scrollToTop} />
-        </>
-      )}
-    </div>
+        )
+      } />
+    </Routes>
   );
 };
 
