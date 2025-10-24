@@ -11,6 +11,7 @@ const RegisterPage: React.FC = () => {
     email: '',
     phoneNumber: '',
     password: '',
+    confirmPassword: '',
   });
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -32,16 +33,25 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Limpa erros anteriores
+    setError(null);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('As senhas não coincidem.');
+      return;
+    }
 
     const cleanedPhoneNumber = formData.phoneNumber.replace(/\D/g, '');
     const dataToSend = {
-      ...formData,
-      phoneNumber: cleanedPhoneNumber,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        username: formData.username,
+        email: formData.email,
+        phoneNumber: cleanedPhoneNumber,
+        password: formData.password,
     };
 
     try {
-      const resp = await api.post('api/users/register', dataToSend);
+      const resp = await api.post('api/accounts', dataToSend);
       console.log('Resposta do servidor:', resp.data);
       alert('Cadastro realizado com sucesso!');
       navigate('/login'); // Redireciona para a página de login após o sucesso
@@ -89,20 +99,6 @@ const RegisterPage: React.FC = () => {
             </div>
           </div>
           <div className="mb-6">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">
-              Nome de Usuário
-            </label>
-            <input
-              className="bg-gray-700 border border-gray-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              id="username"
-              type="text"
-              placeholder="Escolha um nome de usuário"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-6">
             <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
@@ -130,19 +126,35 @@ const RegisterPage: React.FC = () => {
               required
             />
           </div>
-          <div className="mb-8">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">
-              Senha
-            </label>
-            <input
-              className="bg-gray-700 border border-gray-600 rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              id="password"
-              type="password"
-              placeholder="******************"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+              <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">
+                Senha
+              </label>
+              <input
+                className="bg-gray-700 border border-gray-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                id="password"
+                type="password"
+                placeholder="******************"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="confirmPassword">
+                Confirmar Senha
+              </label>
+              <input
+                className="bg-gray-700 border border-gray-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                id="confirmPassword"
+                type="password"
+                placeholder="******************"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="flex items-center justify-center mb-6">
             <button

@@ -5,6 +5,7 @@ import { ShowGalleryPage } from './components/ShowGalleryPage';
 import AuthLayout from './pages/AuthLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ConfirmEmailPage from './pages/ConfirmEmailPage';
 import { MainLayout } from './components/MainLayout';
 
 const App = () => {
@@ -73,6 +74,7 @@ const App = () => {
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/confirmar-email" element={<ConfirmEmailPage />} />
       </Route>
       <Route path="/" element={
         selectedShow ? (
