@@ -4,7 +4,7 @@ import { IMaskInput } from 'react-imask';
 import { toast } from 'sonner';
 import api from '../services/api';
 import axios from 'axios';
-import type { Notification } from '../types/ApiResponse';
+import type { ApiResponse, Notification } from '../types/ApiResponse';
 
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -56,15 +56,21 @@ const RegisterPage: React.FC = () => {
 
     try {
       await api.post('api/accounts', dataToSend);
-      toast.success('Cadastro realizado com sucesso! Verifique seu e-mail para confirmar sua conta.');
-      navigate('/login');
+      toast.success('Cadastro realizado com sucesso! Um código de confirmação foi enviado para o seu e-mail.');
+      navigate('/confirmar-email', { state: { email: formData.email } });
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response?.data?.notifications) {
-        err.response.data.notifications.forEach((notification: Notification) => {
-          toast.error(notification.message);
-        });
+      if (axios.isAxiosError(err) && err.response) {
+        const response: ApiResponse = err.response.data;
+        if (response.notifications) {
+          response.notifications.forEach((notification: Notification) => {
+            if(notification.message)
+              toast.error(notification.message);
+          });
+        } else {
+          toast.error('Ocorreu um erro ao realizar o cadastro. Tente novamente.');
+        }
       } else {
-        toast.error('Ocorreu um erro ao realizar o cadastro. Tente novamente.');
+        toast.error('Ocorreu um erro inesperado. Tente novamente.');
       }
       console.error('Erro no cadastro:', err);
     } finally {

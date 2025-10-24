@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import api from '../services/api';
 import axios from 'axios';
-import type { Notification } from '../types/ApiResponse';
+import type { ApiResponse, Notification } from '../types/ApiResponse';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -20,12 +20,18 @@ const LoginPage: React.FC = () => {
       toast.success('Login bem-sucedido!');
       navigate('/');
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response?.data?.notifications) {
-        err.response.data.notifications.forEach((notification: Notification) => {
-          toast.error(notification.message);
-        });
+      if (axios.isAxiosError(err) && err.response) {
+        const response: ApiResponse = err.response.data;
+        if (response.notifications) {
+          response.notifications.forEach((notification: Notification) => {
+            if(notification.message)
+              toast.error(notification.message);
+          });
+        } else {
+          toast.error('Credenciais inválidas. Tente novamente.');
+        }
       } else {
-        toast.error('Credenciais inválidas. Tente novamente.');
+        toast.error('Ocorreu um erro inesperado. Tente novamente.');
       }
       console.error('Erro no login:', err);
     } finally {
@@ -84,7 +90,7 @@ const LoginPage: React.FC = () => {
           </div>
           <p className="text-center text-gray-400 text-sm">
             Não tem uma conta?{' '}
-            <Link to="/register" className="font-bold text-indigo-400 hover:text-indigo-300">
+            <Link to="/cadastro" className="font-bold text-indigo-400 hover:text-indigo-300">
               Cadastre-se
             </Link>
           </p>
