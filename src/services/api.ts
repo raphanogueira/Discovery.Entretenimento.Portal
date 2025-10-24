@@ -25,8 +25,10 @@ const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
+    } else if (token) {
+      prom.resolve(token);
     } else {
-      prom.resolve(token!);
+      prom.reject(new Error('Token refresh failed'));
     }
   });
 
