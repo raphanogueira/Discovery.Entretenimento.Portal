@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import api from '../services/api';
 import axios from 'axios';
 import type { ApiResponse, Notification } from '../types/ApiResponse';
+import { useAuth } from '../hooks/useAuth';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      await api.post('api/auth/login', { email, password });
-      toast.success('Login bem-sucedido!');
+      await login(email, password);
       navigate('/');
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

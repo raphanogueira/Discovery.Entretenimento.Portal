@@ -6,10 +6,14 @@ import AuthLayout from './pages/AuthLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import { GalleryPage } from './pages/GalleryPage';
 import { MainLayout } from './components/MainLayout';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'sonner';
+import { useAuth } from './hooks/useAuth';
 
 const App = () => {
+  const { isAuthenticated } = useAuth();
   const [activeLink, setActiveLink] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -66,7 +70,7 @@ const App = () => {
     { id: 'home', title: 'Início', ref: sectionRefs.home },
     { id: 'experiencia', title: 'A Experiência', ref: sectionRefs.experiencia },
     { id: 'eventos', title: 'Eventos', ref: sectionRefs.eventos },
-    { id: 'galeria', title: 'Galeria', ref: sectionRefs.galeria },
+    ...(isAuthenticated ? [{ id: 'galeria', title: 'Galeria', ref: sectionRefs.galeria }] : []),
     { id: 'contato', title: 'Contato', ref: sectionRefs.contato }
   ];
 
@@ -79,6 +83,11 @@ const App = () => {
           <Route path="/cadastro" element={<RegisterPage />} />
           <Route path="/confirmar-email" element={<ConfirmEmailPage />} />
         </Route>
+        <Route path="/gallery" element={
+          <ProtectedRoute>
+            <GalleryPage />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={
           selectedShow ? (
             <ShowGalleryPage 
@@ -98,6 +107,7 @@ const App = () => {
               onShowSelect={setSelectedShow}
               showBackToTop={showBackToTop}
               scrollToTop={scrollToTop}
+              isAuthenticated={isAuthenticated}
             />
           )
         } />

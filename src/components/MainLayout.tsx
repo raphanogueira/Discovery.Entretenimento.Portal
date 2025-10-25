@@ -21,6 +21,7 @@ interface MainLayoutProps {
   onShowSelect: (show: Show) => void;
   showBackToTop: boolean;
   scrollToTop: () => void;
+  isAuthenticated: boolean;
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({
@@ -35,6 +36,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   onShowSelect,
   showBackToTop,
   scrollToTop,
+  isAuthenticated,
 }) => {
   return (
     <div className="bg-gray-900 text-white font-sans overflow-x-hidden">
@@ -50,10 +52,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         <HeroSection sectionRef={sectionRefs.home} onVerIngressosClick={onVerIngressosClick} />
         <ExperienceSection ref={sectionRefs.experiencia} />
         <EventsSection ref={sectionRefs.eventos} />
-        <GallerySection 
-          ref={sectionRefs.galeria} 
-          onShowSelect={onShowSelect} 
-        />
+        {isAuthenticated && (
+          <GallerySection 
+            ref={sectionRefs.galeria} 
+            onShowSelect={onShowSelect} 
+          />
+        )}
         <ContactSection ref={sectionRefs.contato} />
       </main>
       <Footer />
