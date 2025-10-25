@@ -76,10 +76,10 @@ export const Header: React.FC<HeaderProps> = ({ navLinks, activeLink, isScrolled
                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                 className="flex items-center space-x-2 text-gray-300 hover:text-indigo-400 transition-colors"
               >
-                {user?.fotoPerfil ? (
+                {user?.profilePicture ? (
                   <img
-                    src={user.fotoPerfil}
-                    alt={user.nome}
+                    src={user.profilePicture}
+                    alt={user.name}
                     className="w-8 h-8 rounded-full object-cover border-2 border-indigo-400"
                   />
                 ) : (
@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({ navLinks, activeLink, isScrolled
                     <UserIcon size={16} />
                   </div>
                 )}
-                <span className="font-medium">{user?.nome}</span>
+                <span className="font-medium">{user?.name}</span>
               </button>
 
               {isProfileMenuOpen && (
@@ -140,10 +140,10 @@ export const Header: React.FC<HeaderProps> = ({ navLinks, activeLink, isScrolled
           ) : (
             <>
               <div className="flex flex-col items-center space-y-2">
-                {user?.fotoPerfil ? (
+                {user?.profilePicture ? (
                   <img
-                    src={user.fotoPerfil}
-                    alt={user.nome}
+                    src={user.profilePicture}
+                    alt={user.name}
                     className="w-12 h-12 rounded-full object-cover border-2 border-indigo-400"
                   />
                 ) : (
@@ -151,7 +151,7 @@ export const Header: React.FC<HeaderProps> = ({ navLinks, activeLink, isScrolled
                     <UserIcon size={24} />
                   </div>
                 )}
-                <span className="text-xl text-gray-300 font-medium">{user?.nome}</span>
+                <span className="text-xl text-gray-300 font-medium">{user?.name}</span>
               </div>
               <button
                 onClick={() => { setIsMenuOpen(false); handleLogout(); }}

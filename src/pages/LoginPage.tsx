@@ -18,7 +18,7 @@ const LoginPage: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate('/gallery');
+      navigate('/');
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         const response: ApiResponse = err.response.data;

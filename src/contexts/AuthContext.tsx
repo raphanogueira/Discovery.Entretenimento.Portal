@@ -16,12 +16,32 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [accessToken, setAccessTokenState] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
 
   const setAccessToken = (token: string | null) => {
     setAccessTokenState(token);
     (window as Window & { __accessToken__?: string }).__accessToken__ = token ?? undefined;
   };
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      try {
+        // This endpoint should return the user data if the session is valid
+        const response = await api.get<ApiResponse<User>>('/api/auth/me');
+        if (response.data?.content) {
+          setUser(response.data.content);
+        }
+      } catch (error) {
+        // It's okay if this fails, it just means the user is not logged in
+        console.log('Not authenticated');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    verifyAuth();
+  }, []);
 
   // Listen for token refresh events from the interceptor
   useEffect(() => {
@@ -79,7 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const value: AuthContextType = {
-    isAuthenticated: !!accessToken && !!user,
+    isAuthenticated: !!user, // Base authentication on user presence
     accessToken,
     user,
     login,
@@ -87,6 +107,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAccessToken,
     setUser,
   };
+
+  // Render a loading state or null while checking auth
+  if (isLoading) {
+    return null; // Or a loading spinner
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

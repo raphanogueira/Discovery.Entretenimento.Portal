@@ -1,8 +1,7 @@
 export interface User {
-  id: string;
-  nome: string;
+  name: string;
   email: string;
-  fotoPerfil?: string;
+  profilePicture?: string;
 }
 
 export interface LoginResponse {
