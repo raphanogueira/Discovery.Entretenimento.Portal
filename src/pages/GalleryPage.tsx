@@ -31,7 +31,7 @@ export const GalleryPage: React.FC = () => {
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">Galeria de Fotos</h1>
           <p className="text-gray-400">
-            Bem-vindo(a), {user?.nome || 'Usuário'}! Explore nossa galeria de eventos.
+            Bem-vindo(a), {user?.name || 'Usuário'}! Explore nossa galeria de eventos.
           </p>
         </div>
 
